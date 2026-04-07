@@ -15,15 +15,15 @@ description: Consumes latest hotspot content from https://hotspot.api4claw.com/h
 mkdir -p ~/.openclaw/hotspots_xwzb
 if [ ! -s ~/.openclaw/hotspots_xwzb/user_id ]; then
   if command -v uuidgen >/dev/null 2>&1; then
-    uuidgen | tr 'A-Z' 'a-z' > ~/.openclaw/hotspots/user_id
+    uuidgen | tr 'A-Z' 'a-z' > ~/.openclaw/hotspots_xwzb/user_id
   elif command -v python3 >/dev/null 2>&1; then
-    python3 -c "import uuid; print(uuid.uuid4())" > ~/.openclaw/hotspots/user_id
+    python3 -c "import uuid; print(uuid.uuid4())" > ~/.openclaw/hotspots_xwzb/user_id
   else
     # Last resort fallback: timestamp + random suffix
-    printf "uid-%s-%s\n" "$(date +%s)" "$(LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 8)" > ~/.openclaw/hotspots/user_id
+    printf "uid-%s-%s\n" "$(date +%s)" "$(LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 8)" > ~/.openclaw/hotspots_xwzb/user_id
   fi
 fi
-USER_ID="$(cat ~/.openclaw/hotspots/user_id)"
+USER_ID="$(cat ~/.openclaw/hotspots_xwzb/user_id)"
 ```
 
 2. 在终端执行 `openclaw cron list`（或当前 OpenClaw CLI 等价命令），查找是否已有名为 `hotspots-xwzb-scheduled-shanghai` 的任务。
