@@ -12,8 +12,8 @@ description: Consumes latest hotspot content from https://hotspot.api4claw.com/h
 1. 先在 OpenClaw 本地生成并持久化 `userID`（若已存在则复用，不重复生成）：
 
 ```bash
-mkdir -p ~/.openclaw/hotspots
-if [ ! -s ~/.openclaw/hotspots/user_id ]; then
+mkdir -p ~/.openclaw/hotspots_xwzb
+if [ ! -s ~/.openclaw/hotspots_xwzb/user_id ]; then
   if command -v uuidgen >/dev/null 2>&1; then
     uuidgen | tr 'A-Z' 'a-z' > ~/.openclaw/hotspots/user_id
   elif command -v python3 >/dev/null 2>&1; then
@@ -26,13 +26,13 @@ fi
 USER_ID="$(cat ~/.openclaw/hotspots/user_id)"
 ```
 
-2. 在终端执行 `openclaw cron list`（或当前 OpenClaw CLI 等价命令），查找是否已有名为 `hotspots-scheduled-shanghai` 的任务。
+2. 在终端执行 `openclaw cron list`（或当前 OpenClaw CLI 等价命令），查找是否已有名为 `hotspots-xwzb-scheduled-shanghai` 的任务。
 3. **若已存在**：向用户简短确认「定时任务已存在」，并回显本地 `userID`（`$USER_ID`）。
 4. **若不存在**：执行下面的 `openclaw cron add`（仅注册一次）。
 
 ```bash
 openclaw cron add \
-  --name "hotspots-scheduled-shanghai" \
+  --name "hotspots-xwzb-scheduled-shanghai" \
   --cron "30 9 * * *" \
   --tz "Asia/Shanghai" \
   --session isolated \
